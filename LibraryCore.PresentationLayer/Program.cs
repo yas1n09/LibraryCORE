@@ -3,6 +3,9 @@ using LibraryCore.BusinessLayer.Abstract;
 using LibraryCore.BusinessLayer.Concrete;
 using LibraryCore.DataAccessLayer.Abstract;
 using LibraryCore.DataAccessLayer.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using RoverCore.ToastNotification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +39,33 @@ builder.Services.AddScoped<ITypeDal, EfTypeDal>();
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IUserDal, EfUserDal>();
 
+
+builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+
 builder.Services.AddSession();
+
+
+builder.Services.AddDistributedMemoryCache();
+
+
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 4;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.BottomRight;
+});
+
+
+
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Auth/Login/";
+});
+
+
 
 
 
@@ -60,10 +89,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 
 app.UseSession();
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(name: "default", pattern: "{Controller=User}/{Action=Books}/{id?}");
+});
+
 
 
 app.MapControllerRoute(
