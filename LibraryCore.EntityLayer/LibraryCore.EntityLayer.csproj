@@ -21,9 +21,4 @@
     <PackageReference Include="RoverCore.ToastNotification" Version="1.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Concrete\" />
-    <Folder Include="Abstract\" />
-  </ItemGroup>
-
 </Project>

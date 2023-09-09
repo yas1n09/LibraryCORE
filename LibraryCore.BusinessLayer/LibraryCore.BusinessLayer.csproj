@@ -21,4 +21,9 @@
     <PackageReference Include="RoverCore.ToastNotification" Version="1.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LibraryCore.DataAccessLayer\LibraryCore.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\LibraryCore.EntityLayer\LibraryCore.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>
