@@ -1,6 +1,7 @@
 ﻿using LibraryCore.BusinessLayer.Abstract;
 using LibraryCore.BusinessLayer.Results;
 using LibraryCore.DataAccessLayer.Abstract;
+using LibraryCore.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace LibraryCore.BusinessLayer.Concrete
 
         public IResult Add(EntityLayer.Concrete.Type type)
         {
+            type.Status = true;
+
             type.Name.ToUpper();
             _typeDal.Add(type);
             return new SuccessResult();

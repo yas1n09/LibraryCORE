@@ -26,6 +26,31 @@ namespace LibraryCore.BusinessLayer.Concrete
             return new SuccessResult();
         }
 
+        public IResult DeleteById(int bookId)
+        {
+
+
+            try
+            {
+                var bookToDelete = _bookDal.Get(b => b.Id == bookId);
+                if (bookToDelete == null)
+                {
+                    return new ErrorResult("Belirtilen kitap bulunamadı.");
+                }
+
+                _bookDal.Delete(bookToDelete);
+                return new SuccessResult("Kitap başarıyla silindi.");
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi burada yapılabilir, loglama vb.
+                return new ErrorResult("Kitap silinirken bir hata oluştu.");
+            }
+
+
+
+        }
+
         public IDataResult<List<Book>> GetAllBySearch(string search)
         {
             var result = _bookDal.GetAllByFK(b => b.Status == true && (b.Name.Contains(search.ToUpper()) || b.Author.FirstName.Contains(search.ToUpper()) || b.Author.LastName.Contains(search.ToUpper()) || b.Type.Name.Contains(search.ToUpper())));
@@ -64,5 +89,7 @@ namespace LibraryCore.BusinessLayer.Concrete
             _bookDal.Update(book);
             return new SuccessResult();
         }
+
     }
+    
 }

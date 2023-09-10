@@ -10,14 +10,16 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.BusinessLayer.ValidationRules
 {
-    internal class UserValidators : AbstractValidator<User>
+    public class UserValidators : AbstractValidator<User>
     {
         public UserValidators()
         {
             // User Name
             RuleFor(u => u.UserName).NotEmpty().WithMessage("Kullanıcı adı boş bırakılamaz.");
-            RuleFor(u => u.UserName).GreaterThan("5").WithMessage("Kullanıcı adı en az 6 haneli olmalıdır.");
-            RuleFor(u => u.UserName).Must(UniqueUsername).WithMessage("Kullanıcı adı zaten mevcut.");
+
+            RuleFor(u => u.UserName).MinimumLength(4).WithMessage("Kullanıcı adı en az 4 karakter içermelidir.");
+
+			RuleFor(u => u.UserName).Must(UniqueUsername).WithMessage("Kullanıcı adı zaten mevcut.");
 
             //First Name
             RuleFor(u => u.FirstName).NotEmpty().WithMessage("İsim boş bırakılamaz.");
@@ -29,7 +31,7 @@ namespace LibraryCore.BusinessLayer.ValidationRules
 
             // Password
             RuleFor(u => u.Password).NotEmpty().WithMessage("Şifre boş bırakılamaz.");
-            RuleFor(u => u.Password).GreaterThan("5").WithMessage("Şifre en az 6 haneli olmalıdır.");
+            RuleFor(u => u.Password).GreaterThan("3").WithMessage("Şifre en az 4 haneli olmalıdır.");
 
             // Email
             RuleFor(u => u.Email).NotEmpty().WithMessage("Email boş bırakılamaz.");
@@ -37,10 +39,18 @@ namespace LibraryCore.BusinessLayer.ValidationRules
         }
 
 
+        //private bool UniqueUsername(string arg)
+        //{
+        //    var userManager = new UserManager(new EfUserDal());
+        //    return userManager.CheckUsername(arg).Success;
+        //}
+
         private bool UniqueUsername(string arg)
         {
             var userManager = new UserManager(new EfUserDal());
-            return userManager.CheckUsername(arg).Success;
+            return !userManager.CheckUsername(arg).Success; // Değişiklik burada
         }
+
+
     }
 }

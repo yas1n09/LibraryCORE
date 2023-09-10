@@ -18,5 +18,7 @@ namespace LibraryCore.BusinessLayer.Abstract
         IDataResult<Book> GetById(int id);
         IDataResult<int> NumberOfBooksByAuthor(int authorId);
         IDataResult<int> NumberOfBooksByType(int typeId);
+
+        IResult DeleteById(int bookId);
     }
 }

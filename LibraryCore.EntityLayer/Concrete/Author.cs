@@ -16,7 +16,7 @@ namespace LibraryCore.EntityLayer.Concrete
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool Status { get; set; }
-        public List<Book> Books { get; set; }
+        public List<Book> ?Books { get; set; }
 
     }
 }

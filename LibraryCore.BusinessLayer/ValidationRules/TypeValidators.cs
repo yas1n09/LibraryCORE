@@ -15,6 +15,9 @@ namespace LibraryCore.BusinessLayer.ValidationRules
         {
             RuleFor(t => t.Name).NotEmpty().WithMessage("Tür ismi boş bırakılamaz.");
             RuleFor(t => t.Name).MinimumLength(2).WithMessage("Tür ismi en az 2 karakter içermelidir.");
+
+           
+            
         }
     }
 }

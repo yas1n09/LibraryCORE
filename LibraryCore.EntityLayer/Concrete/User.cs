@@ -19,8 +19,8 @@ namespace LibraryCore.EntityLayer.Concrete
         public string Email { get; set; }
         public bool Status { get; set; }
         public int PositionId { get; set; }
-        public Position Position { get; set; }
-        public List<BorrowedBook> BorrowedBooks { get; set; }
+        public Position ?Position { get; set; }
+        public List<BorrowedBook> ?BorrowedBooks { get; set; }
         
     }
 }
