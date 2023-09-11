@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.DataAccessLayer.Abstract
 {
-    public interface IUserDal : IEntityRepository<User>
+    public interface IUserDal : IEntityRepository<User>// IEntityRepositorydeki tanımlanan ortak metodlar yeterli olmadıgında entitye göre metodlar her sınıfın kendi dal katmanında tanımlanabilir
     {
         List<User> GetAllByFK();
         List<User> GetAllByStatusWithFK();

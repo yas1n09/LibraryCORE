@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.BusinessLayer.ValidationRules
 {
-    public class PositionValidators : AbstractValidator<Position>
+    public class PositionValidators : AbstractValidator<Position>//Fluent validationda Abstract sınıfından miras alınıp parametredeki entitiyler için validasyon kuralları.
     {
         public PositionValidators()
         {

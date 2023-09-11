@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.BusinessLayer.ValidationRules
 {
-    public class BookValidators : AbstractValidator<Book>
+    public class BookValidators : AbstractValidator<Book>//Fluent validationda Abstract sınıfından miras alınıp parametredeki entitiyler için validasyon kuralları.
     {
         public BookValidators()
         {

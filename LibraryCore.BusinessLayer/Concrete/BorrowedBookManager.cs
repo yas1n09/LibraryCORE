@@ -19,13 +19,13 @@ namespace LibraryCore.BusinessLayer.Concrete
             _borrowedBook = borrowedBook;
         }
 
-        public IResult Add(BorrowedBook borrowedBook)
+        public IResult Add(BorrowedBook borrowedBook)//ekle
         {
             _borrowedBook.Add(borrowedBook);
             return new SuccessResult();
         }
 
-        public IResult Delete(BorrowedBook borrowedBook)
+        public IResult Delete(BorrowedBook borrowedBook)//sil
         {
             _borrowedBook.Delete(borrowedBook);
             return new SuccessResult();
@@ -36,7 +36,7 @@ namespace LibraryCore.BusinessLayer.Concrete
             return new SuccessDataResult<List<BorrowedBook>>(_borrowedBook.GetAllByFK());
         }
 
-        public IDataResult<List<BorrowedBook>> GetAllByStatus()
+        public IDataResult<List<BorrowedBook>> GetAllByStatus() //durumu true olan ödünç alınmış kitapları getirir
         {
             return new SuccessDataResult<List<BorrowedBook>>(_borrowedBook.GetAll(b => b.Status == true));
         }

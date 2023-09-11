@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.DataAccessLayer.Concrete
 {
-    public class Context :DbContext
-    {
+    public class Context :DbContext//DbContexten miras alarak oluşturulan Contexxt sınıfı.
+    {                               //database baglantısını yapmak ve migration işlemleri için veritabanı conneciton stringi ile baglanır
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(LocalDb)\\MSSQLLocalDB;initial catalog=LibraryCore; Integrated Security=true;");

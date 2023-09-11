@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryCore.EntityLayer.Concrete
+namespace LibraryCore.EntityLayer.Concrete//kitap sınıfı ve ilişkileri
 {
     public class Book : IEntity
     {
