@@ -158,7 +158,8 @@ namespace LibraryCore.PresentationLayer.Controllers
 
         #region Edit Profile
         //profil düzenleme kısmı
-
+        // Position u kontrol eder koşula uymazsa admin controllerdaki books kitap listeleme IActionResultuna atar
+        //kullanıcının ödüç aldığı kitap varsa modele döndürür. View tarafında modelden ödünç alınan kitap gösterilir.
         public IActionResult EditProfil()
         {
             try
@@ -195,7 +196,7 @@ namespace LibraryCore.PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditProfil(User user)
+        public IActionResult EditProfil(User user) //kullanıcı bilgilerini güncelleyebilir.
         {
             try
             {

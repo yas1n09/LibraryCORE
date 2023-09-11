@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.PresentationLayer.Models
 {
-    public class ImageBook
+    public class ImageBook  //kitap bilgilerini eklemek - getirmek- güncellemek için gerekli metod
     {
         public int Id { get; set; }
         public string Name { get; set; }

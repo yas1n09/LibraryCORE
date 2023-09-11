@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.EntityLayer.Concrete
 {
-    public class Author :IEntity// yazar sınıfı
+    public class Author :IEntity//  Temel sınıflar yazar sınıfı
     {
 
         [Key]

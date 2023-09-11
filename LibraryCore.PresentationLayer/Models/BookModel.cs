@@ -4,7 +4,7 @@ namespace LibraryCore.PresentationLayer.Models
 {
     public class BookModel
     {
-        //
+        //kitaplarla ilgili işlem yapılacak olan sayfalarda gerekli olan ve kitap verilerini tutan model
 
         public List<Book> Books { get; set; }
         public Book Book { get; set; }

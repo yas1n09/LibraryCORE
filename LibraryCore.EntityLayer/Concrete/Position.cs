@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryCore.EntityLayer.Concrete
+namespace LibraryCore.EntityLayer.Concrete //user-admin ayrmı için pozisyon sınıfı
 {
     public class Position : IEntity
     {

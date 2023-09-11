@@ -12,8 +12,8 @@ namespace LibraryCore.DataAccessLayer.Concrete
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
         where TEntity : class, IEntity, new()
-        where TContext : DbContext, new()
-    {
+        where TContext : DbContext, new()        //her entity için ekle sil, güncelle ,koşula göre getirme ,hepsini getirme kısacası entityleri  parametre
+    {                                            //olarak alan ve her sınıf için kullanılabilir olan metodlar.
         public void Add(TEntity entity)
         {
             using (TContext context = new TContext())

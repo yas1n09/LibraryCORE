@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.EntityLayer.Concrete
 {
-    public class User : IEntity
+    public class User : IEntity     //Kullanıcı sınıfı için gerekli değişkenler.
     {
         [Key]
         public int Id { get; set; }

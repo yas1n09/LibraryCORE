@@ -1,6 +1,6 @@
 ﻿namespace LibraryCore.PresentationLayer.Models
 {
-    public class AuthorWithBook
+    public class AuthorWithBook     //yazarların ad-soyad ve kitap sayfasıyla gösterildiği ön yüz için model
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

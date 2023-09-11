@@ -2,7 +2,7 @@
 
 namespace LibraryCore.PresentationLayer.Models
 {
-    public class UserModel
+    public class UserModel  //kullanıcıişlemlerinde - kullanıcının ödünç aldıgı kitaplarda kullanılan model
     {
         public List<User> Users { get; set; }
         public User User { get; set; }

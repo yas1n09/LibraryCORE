@@ -2,7 +2,7 @@ using LibraryCore.BusinessLayer.Results;
 
 namespace LibraryCore.PresentationLayer.Models
 {
-    public class ErrorViewModel : Result
+    public class ErrorViewModel : Result    //validation hata mesajlarýný fýrlatmak için sýnýf
     {
         public ErrorViewModel(bool success, string message) : base(success, message)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.EntityLayer.Concrete
 {
-    public class BorrowedBook : IEntity
+    public class BorrowedBook : IEntity //ödünç alınan kitap sınıf ve ilişkileri
     {
         [Key]
         public int Id { get; set; }

@@ -2,7 +2,7 @@
 
 namespace LibraryCore.PresentationLayer.Models
 {
-    public class PositionModel
+    public class PositionModel //kullanıcı pozisyonu-pozisyon sayısı ve listelemek için model
     {
         public Position Position { get; set; }
         public List<Position> Positions { get; set; }

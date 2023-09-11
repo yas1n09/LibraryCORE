@@ -23,9 +23,11 @@ namespace LibraryCore.PresentationLayer.Controllers
         IAuthorService _authorService;
         ITypeService _typeService;
         IPositionService _positionService;
+        IBorrowedBookService _borowwedBookService;
+
 
         //Bu kod parçası, AdminController sınıfının kurucu metodudur ve servisleri enjekte ederek sınıfın bağımlılıklarını ayarlar.
-        public AdminController(INotyfService notyf, IBookService bookService, IBorrowedBookService borrowedBookService, IUserService userService, IAuthorService authorService, ITypeService typeService, IPositionService positionService)
+        public AdminController(INotyfService notyf, IBookService bookService, IBorrowedBookService borrowedBookService, IUserService userService, IAuthorService authorService, ITypeService typeService, IPositionService positionService, IBorrowedBookService? borowwedBookService)
         {
             _notyf = notyf;
             _bookService = bookService;
@@ -34,8 +36,10 @@ namespace LibraryCore.PresentationLayer.Controllers
             _authorService = authorService;
             _typeService = typeService;
             _positionService = positionService;
+            _borowwedBookService = borowwedBookService;
         }
 
+       
 
 
 
@@ -832,6 +836,17 @@ namespace LibraryCore.PresentationLayer.Controllers
             return View(model);
         }
         #endregion
+
+
+
+
+  
+
+
+
+
+
+
 
 
 

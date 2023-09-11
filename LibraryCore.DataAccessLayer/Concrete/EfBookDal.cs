@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.DataAccessLayer.Concrete
 {
-    public class EfBookDal : EfEntityRepositoryBase<Book, Context>, IBookDal
+    public class EfBookDal : EfEntityRepositoryBase<Book, Context>, IBookDal //EntityFramewok kullanarak veritabanındaki books tablosunda veri çekmek ve filtrelemek için kullanılan dataaccess sınıfı
     {
         public List<Book> GetAllByFK(Expression<Func<Book, bool>> filter = null)
         {

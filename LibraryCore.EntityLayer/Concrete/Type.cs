@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.EntityLayer.Concrete
 {
-    public class Type : IEntity
+    public class Type : IEntity     //Kitap türü için sınıf 
     {
         [Key]
         public int Id { get; set; }
