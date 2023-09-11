@@ -10,15 +10,15 @@ namespace LibraryCore.BusinessLayer.Abstract
 {
     public interface IUserService
     {
-        IDataResult<User> CheckUser(User user);
-        IResult Add(User user);
-        IResult Update(User user);
-        IResult CheckUsername(string userName);
-        IDataResult<User> GetById(int userId);
-        IDataResult<List<User>> GetAllByFK();
-        IDataResult<List<User>> GetAllByStatus();
-        IDataResult<List<User>> GetAllByStatusWithFK();
-        IDataResult<int> NumberOfUsersByPosition(int positionId);
-        IDataResult<User> GetByUsername(string userName);
+        IDataResult<User> CheckUser(User user); //kullanıcı mı -admin mi oldugunu kontrol etmek için metod
+        IResult Add(User user);//kullanıcı eklemek için metod
+        IResult Update(User user);//kullanıcı bilgilerini güncellemek için metod.
+        IResult CheckUsername(string userName);//benzersiz kullanıcı adı için kullanılan metod
+        IDataResult<User> GetById(int userId);// kullanıcıları id ile getirme
+        IDataResult<List<User>> GetAllByFK();//foreign key positionid ile listeleme
+        IDataResult<List<User>> GetAllByStatus();//durumu true olan kullanıcıları listeleme
+        IDataResult<List<User>> GetAllByStatusWithFK();//position id ye göre durumları true olanları listeleme
+        IDataResult<int> NumberOfUsersByPosition(int positionId);//her pozisyonda kaç kullanıcı oldugunu gösteren metod.
+        IDataResult<User> GetByUsername(string userName);//usernam parametresine göre kullanıcı getirme
     }
 }

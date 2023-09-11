@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.BusinessLayer.Concrete
 {
-    public class BookManager : IBookService
+    public class BookManager : IBookService//book serviteki metodlar için miras alınır
     {
         IBookDal _bookDal;
 
@@ -21,12 +21,12 @@ namespace LibraryCore.BusinessLayer.Concrete
 
         public IResult Add(Book book)
         {
-            book.Name.ToUpper();
+            book.Name.ToUpper();//kitap isimleri büyük harfle yeni ktap olarak kaydedilir.
             _bookDal.Add(book);
             return new SuccessResult();
         }
 
-        public IResult DeleteById(int bookId)
+        public IResult DeleteById(int bookId)//kitap idsi ile kitabı siler.
         {
 
 
@@ -51,34 +51,34 @@ namespace LibraryCore.BusinessLayer.Concrete
 
         }
 
-        public IDataResult<List<Book>> GetAllBySearch(string search)
+        public IDataResult<List<Book>> GetAllBySearch(string search) //aramas kısmına girilin stringi kitap isimlerinde arar blunan kitapları döndürür.
         {
             var result = _bookDal.GetAllByFK(b => b.Status == true && (b.Name.Contains(search.ToUpper()) || b.Author.FirstName.Contains(search.ToUpper()) || b.Author.LastName.Contains(search.ToUpper()) || b.Type.Name.Contains(search.ToUpper())));
             return new SuccessDataResult<List<Book>>(result);
         }
 
-        public IDataResult<List<Book>> GetAllByStatus()
+        public IDataResult<List<Book>> GetAllByStatus()//durumu true olan kitapları listeler
         {
             var result = _bookDal.GetAllByFK(b => b.Status == true);
             return new SuccessDataResult<List<Book>>(result);
         }
 
-        public IDataResult<List<Book>> GetAllByStatusWithFK()
+        public IDataResult<List<Book>> GetAllByStatusWithFK() //Bookdal dan kitapları yazarlarıyla birlikte döndürür
         {
             return new SuccessDataResult<List<Book>>(_bookDal.GetAllByStatusWithFK());
         }
 
-        public IDataResult<Book> GetById(int id)
+        public IDataResult<Book> GetById(int id)//idsi ile kitap getirir
         {
             return new SuccessDataResult<Book>(_bookDal.Get(b => b.Id == id));
         }
 
-        public IDataResult<int> NumberOfBooksByAuthor(int authorId)
+        public IDataResult<int> NumberOfBooksByAuthor(int authorId)//yazarın tüm kitap sayısı
         {
             return new SuccessDataResult<int>(_bookDal.GetAll(b => b.AuthorId == authorId && b.Status == true).Count);
         }
 
-        public IDataResult<int> NumberOfBooksByType(int typeId)
+        public IDataResult<int> NumberOfBooksByType(int typeId)//tür Id si ile durumu true ise getirir
         {
             return new SuccessDataResult<int>(_bookDal.GetAll(b => b.TypeId == typeId && b.Status == true).Count);
         }
