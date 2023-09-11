@@ -9,7 +9,7 @@ using Type = LibraryCore.EntityLayer.Concrete.Type;
 
 namespace LibraryCore.BusinessLayer.ValidationRules
 {
-    internal class TypeValidators : AbstractValidator<Type>
+    public class TypeValidators : AbstractValidator<Type>
     {
         public TypeValidators()
         {

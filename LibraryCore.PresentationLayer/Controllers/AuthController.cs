@@ -1,4 +1,7 @@
-﻿using LibraryCore.BusinessLayer.ValidationRules;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using LibraryCore.BusinessLayer.Results;
+using LibraryCore.BusinessLayer.ValidationRules;
 using LibraryCore.BusinessLayer.Abstract;
 using LibraryCore.EntityLayer.Concrete;
 using LibraryCore.PresentationLayer.Models;
@@ -24,6 +27,12 @@ namespace LibraryCore.PresentationLayer.Controllers
             _positionService = positionService;
         }
 
+
+        // Bu kod bloğu, bir kullanıcının oturum açma işlemlerini yönetir.
+        // "Login" metodu, kullanıcının oturum açma sayfasına yönlendirir ve giriş modelini oluşturur.
+        // "Login" metodunun HTTP POST sürümü, kullanıcının kimlik doğrulama işlemini gerçekleştirir.
+        // İlk olarak kullanıcının bilgileri doğrulanır ve hatalıysa kullanıcıya bilgi verilir.
+        // Doğru kimlik bilgileri girildiğinde, kullanıcının oturum bilgileri saklanır ve kullanıcının rolüne göre yönlendirme yapılır.
 
         #region UserLogin
 
@@ -94,6 +103,14 @@ namespace LibraryCore.PresentationLayer.Controllers
         #endregion
 
 
+
+        // Bu kod bloğu, kullanıcı kaydı işlemlerini yönetir.
+        // "UserSignup" metodu, kullanıcı kayıt sayfasına yönlendirir ve kayıt modelini oluşturur.
+        // "UserSignup" metodunun HTTP POST sürümü, kullanıcının kayıt işlemini gerçekleştirir.
+        // Kullanıcının durumu ve pozisyonu ayarlanır ve veri doğrulama işlemi yapılır.
+        // Kayıt işlemi başarılıysa kullanıcı giriş sayfasına yönlendirilir, aksi takdirde hatalar işlenir ve kullanıcı bilgilendirilir.
+
+
         #region SignUp
 
 
@@ -128,44 +145,40 @@ namespace LibraryCore.PresentationLayer.Controllers
                 user.Status = true;
                 user.PositionId = _positionService.GetByName("KULLANICI").Data.Id;
 
-                var validator = new UserValidators(); // FluentValidation kurallarını kullanacak nesne
-                var validationResult = validator.Validate(user); // Modeli doğrula
-
-                if (!validationResult.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    foreach (var error in validationResult.Errors)
-                    {
-                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage); // Hata mesajlarını ModelState'e ekle
-                    }
-
                     var model = new UserModel
                     {
                         User = user
                     };
 
                     _notyf.Error("Kayıt Başarısız.");
-                    return View(model); // Hata durumunda kayıt sayfasına geri dönün
+                    return View(model);
                 }
 
-                // FluentValidation doğrulaması başarılı olduğunda burada kayıt işlemi kodları
                 var result = _userService.Add(user);
 
-                if (!result.Success)
+                if (result.Success)
                 {
+                    _notyf.Success("Üye işlemi başarıyla tamamlandı.");
+                    // Başarılı kayıt işlemi sonrası kullanıcıyı giriş sayfasına yönlendirin
+                    return RedirectToAction("Login", "Auth");
+                }
+                else
+                {
+                    // Kayıt işlemi başarısız ise hata mesajlarını işleyin
                     _notyf.Error("Üye işlemi yapılırken bir hata oluştu.");
 
                     var model = new UserModel
                     {
-                        User = user
+                        User = new User()
                     };
+
+                    // Serilog ile hata loglama
+                    Log.Error(result.Message);
 
                     return View(model);
                 }
-
-                _notyf.Success("Üye işlemi başarıyla tamamlandı.");
-
-                // Başarılı kayıt işlemi sonrası kullanıcıyı giriş sayfasına yönlendirin
-                return RedirectToAction("Login", "Auth");
             }
             catch (Exception ex)
             {
@@ -179,9 +192,11 @@ namespace LibraryCore.PresentationLayer.Controllers
         }
 
 
+
+
         #endregion
 
-
+        //kayıtlı cookileri siler ve kullanıcıyı logout eder
 
         #region LogOut
 
@@ -195,7 +210,6 @@ namespace LibraryCore.PresentationLayer.Controllers
                 Response.Cookies.Delete("name");
                 Response.Cookies.Delete("lastname");
                 Response.Cookies.Delete("position");
-
                 // Kullanıcıyı oturumdan çıkart
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 

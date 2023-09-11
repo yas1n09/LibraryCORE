@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryCore.BusinessLayer.ValidationRules
 {
-    internal class PositionValidators : AbstractValidator<Position>
+    public class PositionValidators : AbstractValidator<Position>
     {
         public PositionValidators()
         {

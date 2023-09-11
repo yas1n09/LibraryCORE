@@ -1,0 +1,36 @@
+﻿@model BorrowedBookModel
+
+@{
+    Layout = "_UserLayout";
+}
+
+<h1 class="py-3 text-white" style="background-color: #3a393f ">ÖDÜNÇ ALINAN KİTAPLAR</h1>
+<div class="mx-5">
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ÖDÜNÇ ALANIN ADI</th>
+                <th>ÖDÜNÇ ALANIN SOYADI</th>
+                <th>KİTAP ADI</th>
+                <th>ÖDÜNÇ ALMA TARİHİ</th>
+                <th>KİTABIN GERİ VERİLECCEĞİ TARİH</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var borrowedBook in Model.BorrowedBooks)
+            {
+                <tr>
+                    <td>@borrowedBook.User.FirstName</td>
+                    <td>@borrowedBook.User.LastName</td>
+                    <td>@borrowedBook.Book.Name</td>
+                    <td>@borrowedBook.BorrowDate.GetDateTimeFormats()[0]</td>
+                    <td>@borrowedBook.ReturnDate.GetDateTimeFormats()[0]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

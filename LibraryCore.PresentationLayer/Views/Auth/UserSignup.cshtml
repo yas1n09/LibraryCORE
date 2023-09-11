@@ -1,79 +1,81 @@
-﻿@model UserModel
+﻿
+@model UserModel
 @{
-	Layout = "_MainLayout";
+    Layout = "_MainLayout";
 }
 
 <!doctype html>
 <html lang="tr">
 <head>
-	<title>Kaydol</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kaydol</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="~/FreeThemes/signup/css/style.css">
+    <link rel="stylesheet" href="~/FreeThemes/signup/css/style.css">
 
 </head>
 <body class="img" style="background-image: url(~/FreeThemes/signup/images/bg.jpg);">
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Kaydol</h2>
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-7 col-lg-5">
-					<div class="login-wrap">
-						<h3 class="text-center mb-4">Create Your Account</h3>
-						<form method="post" asp-action="UserSignup" asp-controller="Auth" class="signup-form">
-							<div class="form-group mb-3">
-								<label asp-for="User.FirstName" class="label" for="name">Ad</label>
-								<input asp-for="User.FirstName" required type="text" class="form-control">
-								<span class="icon fa fa-user-o" asp-validation-for="User.FirstName"></span>
-							</div>
-							<div class="form-group mb-3">
-								<label asp-for="User.LastName" class="label" for="name">Soyad</label>
-								<input asp-for="User.LastName" required type="text" class="form-control">
-								<span class="icon fa fa-user-o" asp-validation-for="User.LastName"></span>
-							</div>
-							<div class="form-group mb-3">
-								<label asp-for="User.UserName" class="label" for="name">Kullanıcı Adı</label>
-								<input asp-for="User.UserName" required type="text" class="form-control">
-								<span class="icon fa fa-user-o" asp-validation-for="User.UserName"></span>
-							</div>
-							<div class="form-group mb-3">
-								<label asp-for="User.Email" class="label" for="email">Email Adresi</label>
-								<input asp-for="User.Email" required type="text" class="form-control">
-								<span class="icon fa fa-paper-plane-o" asp-validation-for="User.Email"></span>
-							</div>
-							<div class="form-group mb-3">
-								<label asp-for="User.Password" class="label" for="password">Şifre</label>
-								<input asp-for="User.Password" required id="password" type="password" class="form-control">
-								<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password" asp-validation-for="User.Password"></span>
-								<span class="icon fa fa-lock"></span>
-							</div>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Kaydol</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="login-wrap">
+                        <h3 class="text-center mb-4">Kaydol</h3>
+                        <form method="post" asp-action="UserSignup" asp-controller="Auth" class="signup-form">
+                            <div class="form-group mb-3">
+                                <label asp-for="User.FirstName" class="label" for="name">Ad</label>
+                                <input asp-for="User.FirstName" required type="text" class="form-control">
+                                <span class="icon fa fa-user-o"></span>
+                                <span asp-validation-for="User.FirstName" class="text-danger"></span> <!-- Hata mesajı -->
+                            </div>
+                            <div class="form-group mb-3">
+                                <label asp-for="User.LastName" class="label" for="name">Soyad</label>
+                                <input asp-for="User.LastName" required type="text" class="form-control">
+                                <span class="icon fa fa-user-o"></span>
+                                <span asp-validation-for="User.LastName" class="text-danger"></span> <!-- Hata mesajı -->
+                            </div>
+                            <div class="form-group mb-3">
+                                <label asp-for="User.UserName" class="label" for="name">Kullanıcı Adı</label>
+                                <input asp-for="User.UserName" required type="text" class="form-control">
+                                <span class="icon fa fa-user-o"></span>
+                                <span asp-validation-for="User.UserName" class="text-danger"></span> <!-- Hata mesajı -->
+                            </div>
+                            <div class="form-group mb-3">
+                                <label asp-for="User.Email" class="label" for="email">Email Adresi</label>
+                                <input asp-for="User.Email" required type="text" class="form-control">
+                                <span class="icon fa fa-email"></span>
+                                <span asp-validation-for="User.Email" class="text-danger"></span> <!-- Hata mesajı -->
+                            </div>
+                            <div class="form-group mb-3">
+                                <label asp-for="User.Password" class="label" for="password">Şifre</label>
+                                <input asp-for="User.Password" required id="password" type="password" class="form-control">
+                                <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                <span class="icon fa fa-lock"></span>
+                                <span asp-validation-for="User.Password" class="text-danger"></span> <!-- Hata mesajı -->
+                            </div>
 
-							<div class="form-group">
-								
-								<button type="submit" class="form-control btn btn-primary submit px-3">Kaydol</button>
-
-							</div>
-						</form>
-						<p>Hesabım Var <a data-toggle="tab" href="/Auth/Login/">Giriş Yap</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<script src="~/FreeThemes/signup/js/jquery.min.js"></script>
-	<script src="~/FreeThemes/signup/js/popper.js"></script>
-	<script src="~/FreeThemes/signup/js/bootstrap.min.js"></script>
-	<script src="~/FreeThemes/signup/js/main.js"></script>
-
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary submit px-3">Kaydol</button>
+                            </div>
+                        </form>
+                        <p>Hesabım Var <a href="/Auth/Login/">Giriş Yap</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/FreeThemes/signup/js/jquery.min.js"></script>
+    <script src="~/FreeThemes/signup/js/popper.js"></script>
+    <script src="~/FreeThemes/signup/js/bootstrap.min.js"></script>
+    <script src="~/FreeThemes/signup/js/main.js"></script>
 </body>
 </html>
-

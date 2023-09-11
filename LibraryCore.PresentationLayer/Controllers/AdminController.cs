@@ -1,4 +1,7 @@
-﻿using LibraryCore.BusinessLayer.Abstract;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using LibraryCore.BusinessLayer.Results;
+using LibraryCore.BusinessLayer.Abstract;
 using LibraryCore.EntityLayer.Concrete;
 using LibraryCore.PresentationLayer.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +24,7 @@ namespace LibraryCore.PresentationLayer.Controllers
         ITypeService _typeService;
         IPositionService _positionService;
 
+        //Bu kod parçası, AdminController sınıfının kurucu metodudur ve servisleri enjekte ederek sınıfın bağımlılıklarını ayarlar.
         public AdminController(INotyfService notyf, IBookService bookService, IBorrowedBookService borrowedBookService, IUserService userService, IAuthorService authorService, ITypeService typeService, IPositionService positionService)
         {
             _notyf = notyf;
@@ -32,13 +36,26 @@ namespace LibraryCore.PresentationLayer.Controllers
             _positionService = positionService;
         }
 
+
+
+
+
+        //1. `Books()`: Kitapları listeleyen bir sayfayı döndürür.
+        //2. `AddBook()`: Yeni bir kitap eklemek için gerekli sayfayı gösterir.
+        //3. `[HttpPost] AddBook(ImageBook imageBook)`: Yeni bir kitap ekler. Formdan gelen verileri işler ve kitap ekler.
+        //4. `UpdateBook(int id)`: Belirli bir kitabı güncellemek için gerekli sayfayı gösterir.
+        //5. `[HttpPost] UpdateBook(ImageBook imageBook)`: Bir kitabı günceller.Formdan gelen verileri işler ve kitabı günceller.
+        //6. `DeleteBook(int id)`: Belirli bir kitabı siler.
+
+        //Bu kod parçası aynı zamanda hata işleme ve kullanıcı yetkilendirme kontrolü de içerir.Hatalar loglanır ve kullanıcıya bilgi verilir.
+
         #region Books
 
         public IActionResult Books()
         {
             if (!CheckUser())
             {
-                Log.Error("Kullanıcı yetkilendirme hatası"); 
+                Log.Error("Kullanıcı yetkilendirme hatası");
                 return RedirectToAction("Books", "User");
             }
             var model = new BookModel
@@ -258,6 +275,14 @@ namespace LibraryCore.PresentationLayer.Controllers
 
 
 
+        //    BorrowedBooks(): Ödünç alınan kitapları listeleyen bir sayfayı döndürür.
+        //OldBorrowedBooks() : Geçmiş ödünç alınan kitapları listeleyen bir sayfayı döndürür.
+        // RevokeBorrowedBook(int id): Ödünç alınan bir kitabın iadesini işler.Kitabın iade tarihini günceller ve kitabın durumunu değiştirir.
+        //DeleteBorrowedBook(int id): Ödünç alınan bir kitabı siler.
+
+        //Her bir yöntem, kullanıcı yetkilendirme kontrolü yapar ve olası hataları loglar.
+
+
         #region BorrowedBooks
 
 
@@ -367,6 +392,17 @@ namespace LibraryCore.PresentationLayer.Controllers
 
 
         #endregion
+
+
+
+        //Authors() : Yazarları listeleyen bir sayfayı döndürür ve her yazarın yazdığı kitapların sayısını gösterir.
+        //AddAuthor(): Yeni bir yazar eklemek için gerekli sayfayı gösterir.
+
+        //[HttpPost] AddAuthor(Author author): Yeni bir yazar ekler. Formdan gelen verileri işler ve yazarı ekler.
+        //UpdateAuthor(int id): Belirli bir yazarı güncellemek için gerekli sayfayı gösterir.
+
+        //[HttpPost] UpdateAuthor(Author author): Bir yazarı günceller.Formdan gelen verileri işler ve yazarı günceller.
+        //DeleteAuthor(int id): Belirli bir yazarı pasif hale getirir (silinmez). Yazarın durumunu değiştirir.
 
 
 
@@ -528,6 +564,13 @@ namespace LibraryCore.PresentationLayer.Controllers
         }
 
         #endregion
+
+
+
+        // "Types" metodunda kullanıcı yetkilendirmesi yapılır, tür verileri alınır ve görüntülenmek üzere hazırlanır.
+        // "AddType" metodunda yeni tür eklemesi yapılır ve kullanıcıya başarı veya hata mesajları gösterilir.
+        // "UpdateType" metodunda varolan tür bilgileri güncellenir ve yine kullanıcıya bilgilendirme yapılır.
+        // "DeleteType" metodunda bir tür pasif hale getirilir (silinmez) ve kullanıcıya işlem sonucu bildirilir.
 
 
 
@@ -707,6 +750,12 @@ namespace LibraryCore.PresentationLayer.Controllers
 
 
 
+        // "Positions" metodunda kullanıcı yetkilendirmesi yapılır, pozisyon verileri alınır ve görüntülenmek üzere hazırlanır.
+        // Diğer metodlar (AddPosition, UpdatePosition, DeletePosition) pozisyon ekleme, güncelleme ve silme işlemlerini içerir, ancak şu an kullanımda değil ve yorum satırları ile devre dışı bırakılmış durumda.
+        // Hata yönetimi ve kullanıcıya bilgilendirme işlemleri tüm metodlarda ortaktır ve yorum satırlarıyla belirtilmiştir.
+
+
+
         #region Positions
 
         public IActionResult Positions()
@@ -750,141 +799,12 @@ namespace LibraryCore.PresentationLayer.Controllers
             }
         }
 
-        //public IActionResult AddPosition()
-        //{
-        //    try
-        //    {
-        //        if (!CheckUser())
-        //        {
-        //            Log.Error("Kullanıcı yetkilendirme hatası");
-        //            return RedirectToAction("Books", "User");
-        //        }
-        //        var model = new PositionModel
-        //        {
-        //            Position = new Position()
-        //        };
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error(ex, "Pozisyon ekleme sayfası görüntülenirken bir hata oluştu");
-
-        //        // Hata mesajını kullanıcıya göstermek veya diğer işlemleri burada gerçekleştirebilirsiniz.
-
-        //        return View("Error"); // Hata sayfasına yönlendirme veya başka bir işlem yapılabilir.
-        //    }
-        //}
-
-        //[HttpPost]
-        //public IActionResult AddPosition(Position position)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            var model = new PositionModel
-        //            {
-        //                Position = position
-        //            };
-        //            return View(model);
-        //        }
-        //        position.Status = true;
-        //        _positionService.Add(position);
-        //        _notyf.Success("Yeni pozisyon başarıyla eklendi.", 3);
-        //        return RedirectToAction("Positions", "Admin");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error(ex, "Pozisyon ekleme işlemi sırasında bir hata oluştu");
-
-        //        // Hata mesajını kullanıcıya göstermek veya diğer işlemleri burada gerçekleştirebilirsiniz.
-
-        //        return View("Error"); // Hata sayfasına yönlendirme veya başka bir işlem yapılabilir.
-        //    }
-        //}
-
-        //public IActionResult UpdatePosition(int id)
-        //{
-        //    try
-        //    {
-        //        if (!CheckUser())
-        //        {
-        //            Log.Error("Kullanıcı yetkilendirme hatası");
-        //            return RedirectToAction("Books", "User");
-        //        }
-        //        var model = new PositionModel
-        //        {
-        //            Position = _positionService.GetById(id).Data
-        //        };
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error(ex, "Pozisyon güncelleme sayfası görüntülenirken bir hata oluştu");
-
-        //        // Hata mesajını kullanıcıya göstermek veya diğer işlemleri burada gerçekleştirebilirsiniz.
-
-        //        return View("Error"); // Hata sayfasına yönlendirme veya başka bir işlem yapılabilir.
-        //    }
-        //}
-
-        //[HttpPost]
-        //public IActionResult UpdatePosition(Position position)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            var model = new PositionModel
-        //            {
-        //                Position = position
-        //            };
-        //            return View(model);
-        //        }
-        //        position.Status = true;
-        //        _positionService.Update(position);
-        //        _notyf.Warning("Pozisyon başarıyla güncellendi.", 3);
-        //        return RedirectToAction("Positions", "Admin");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error(ex, "Pozisyon güncelleme işlemi sırasında bir hata oluştu");
-
-        //        // Hata mesajını kullanıcıya göstermek veya diğer işlemleri burada gerçekleştirebilirsiniz.
-
-        //        return View("Error"); // Hata sayfasına yönlendirme veya başka bir işlem yapılabilir.
-        //    }
-        //}
-
-        //public IActionResult DeletePosition(int id)
-        //{
-        //    try
-        //    {
-        //        if (!CheckUser())
-        //        {
-        //            Log.Error("Kullanıcı yetkilendirme hatası");
-        //            return RedirectToAction("Books", "User");
-        //        }
-        //        var position = _positionService.GetById(id).Data;
-        //        position.Status = false;
-        //        _positionService.Update(position);
-        //        _notyf.Error("Pozisyon başarıyla silindi.", 3);
-        //        return RedirectToAction("Positions", "Admin");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error(ex, "Pozisyon silme işlemi sırasında bir hata oluştu");
-
-        //        // Hata mesajını kullanıcıya göstermek veya diğer işlemleri burada gerçekleştirebilirsiniz.
-
-        //        return View("Error"); // Hata sayfasına yönlendirme veya başka bir işlem yapılabilir.
-        //    }
-        //}
 
 
         #endregion
 
-
+        // Kullanıcı yetkilendirmesi yapılır ve istatistik verileri toplanarak istatistik modeline atanır.
+        // Bu istatistikler arasında yazar sayısı, kitap sayısı, ödünç alınmış kitap sayısı, pozisyon sayısı, tür sayısı ve kullanıcı sayısı bulunur.
 
 
         #region Statistics
@@ -913,6 +833,12 @@ namespace LibraryCore.PresentationLayer.Controllers
         }
         #endregion
 
+
+
+
+
+        //2 tür kullanıcı vardın 1.si admin ve digeri de kütüphaneden kitap almak isteyen kullanıcılar.
+        //kullanıcılar üzerinde crud işlemleri yapmak için bu kod kullanılır.
 
         #region Users
         public IActionResult Users()
@@ -999,6 +925,7 @@ namespace LibraryCore.PresentationLayer.Controllers
         #endregion
 
 
+        //kullanıcının veritabanındaki position değerinden admin mi yoksa kullanıcı mı olduğunu belirleyen kod blogu
 
         #region Check User-Staff
         private bool CheckUser()

@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using FluentValidation.AspNetCore;
 using Serilog;
 using Serilog.Events;
+using System.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace LibraryCore
 {
@@ -22,6 +24,9 @@ namespace LibraryCore
     {
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<Context>();
+
             services.AddSingleton<IBookService, BookManager>();
             services.AddSingleton<IBookDal, EfBookDal>();
             services.AddSingleton<IBorrowedBookService, BorrowedBookManager>();

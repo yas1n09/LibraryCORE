@@ -13,6 +13,7 @@
     </form>
 </div>
 
+
 <div class="row m-0 mt-3">
     @foreach (var book in Model.Books)
     {
@@ -27,6 +28,7 @@
                             <h5 class="card-title" style="color: #3C096C">@book.Name</h5>
                             <p class="card-text" style="color: #240046 ">@book.Author.FirstName @book.Author.LastName</p>
                             <p class="card-text text-muted">@book.Type.Name</p>
+
                             <a href="/User/BorrowBook/@book.Id" class="btn btn-primary">Ödünç Al</a>
                         </div>
                     </div>
@@ -34,4 +36,4 @@
             </div>
         </div>
     }
-</div>
+    
