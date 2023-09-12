@@ -120,9 +120,9 @@ namespace LibraryCore.PresentationLayer.Controllers
                 var borrowedBook = new BorrowedBook
                 {
                     BorrowDate = DateTime.Parse(DateTime.Now.ToShortDateString()),
-                    //ReturnDate = DateTime.Parse(DateTime.Now.AddDays(15).ToShortDateString()),
+                    ReturnDate = DateTime.Parse(DateTime.Now.AddDays(15).ToShortDateString()),
 
-                    ReturnDate = returnDate,
+                    //ReturnDate = returnDate,
                     Status = true,
                     BookId = id,
                     UserId = Convert.ToInt32(HttpContext.Session.GetString("id"))
