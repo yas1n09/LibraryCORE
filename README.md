@@ -58,6 +58,8 @@ Bu projeyi çalıştırmak için aşağıdaki ortam değişkenlerini (Nuget Pake
 
 **DesignPattern:** Repository Design Pattern
 
+**Loglama:** Loglar Proje çözümü içerisinde "logs" klasörü altında txtlerde tutulmaktadır.
+
 ## Özellikler
 
     Kullanıcı
