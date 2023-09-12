@@ -1,0 +1,3 @@
+Kullanıcı sınıfı için 		  ID		 pw
+				test09		123123
+Admin sınıfı için		yas1n09		123123
